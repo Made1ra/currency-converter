@@ -1,3 +1,4 @@
+import type { ReactNode } from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
@@ -27,7 +28,7 @@ const convertCurrencySchema = z.object({
 type ConvertCurrencyForm = z.infer<typeof convertCurrencySchema>;
 
 type ConvertCurrencyFormProps = {
-  currencies: React.ReactNode;
+  currencies: ReactNode;
   setResult: (result: number) => void;
 };
 
