@@ -10,7 +10,7 @@ async function Currencies() {
 
   return (
     <SelectContent>
-      {codes.map((code: string, index: number) => (
+      {codes.map((code, index) => (
         <SelectItem key={code} value={code}>
           {names[index]}
         </SelectItem>
