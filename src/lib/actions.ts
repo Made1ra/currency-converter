@@ -5,7 +5,7 @@ export async function getCurrencies() {
   try {
     const response = await fetch(`${BASE_URL}/list?access_key=${API_KEY}`);
     if (!response.ok) {
-      throw new Error("Failed to fetch symbols");
+      throw new Error("Failed to fetch currencies");
     }
 
     return response.json();
