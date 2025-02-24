@@ -1,5 +1,3 @@
-"use client";
-
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
@@ -30,9 +28,13 @@ type ConvertCurrencyForm = z.infer<typeof convertCurrencySchema>;
 
 type ConvertCurrencyFormProps = {
   currencies: React.ReactNode;
+  setResult: (result: number) => void;
 };
 
-function ConvertCurrencyForm({ currencies }: ConvertCurrencyFormProps) {
+function ConvertCurrencyForm({
+  currencies,
+  setResult,
+}: ConvertCurrencyFormProps) {
   const form = useForm<ConvertCurrencyForm>({
     resolver: zodResolver(convertCurrencySchema),
     defaultValues: {
@@ -43,8 +45,8 @@ function ConvertCurrencyForm({ currencies }: ConvertCurrencyFormProps) {
   });
 
   const onSubmit = async (values: ConvertCurrencyForm) => {
-    const result = await convert(values.from, values.to, values.amount);
-    console.log(result);
+    const { result } = await convert(values.from, values.to, values.amount);
+    setResult(result);
     form.reset();
   };
 
