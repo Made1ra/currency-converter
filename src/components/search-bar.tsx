@@ -27,7 +27,7 @@ function SearchBar({ setCurrency }: SearchBarProps) {
   const form = useForm<SearchCurrensiesForm>({
     resolver: zodResolver(searchCurrenciesSchema),
     defaultValues: {
-      currency: "USD",
+      currency: "",
     },
   });
 

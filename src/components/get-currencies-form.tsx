@@ -15,7 +15,8 @@ import {
   FormLabel,
 } from "@/components/ui/form";
 import { Select, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { getLatestRates } from "@/lib/actions";
+
+import { getLatestRates } from "@/lib/requests";
 
 const getCurrenciesSchema = z.object({
   currency: z.string().nonempty(),

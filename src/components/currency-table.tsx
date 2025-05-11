@@ -1,33 +1,19 @@
-import Codes from "@/components/codes";
+import { DataTable } from "@/components/ui/data-table";
 
-import {
-  Table,
-  TableBody,
-  TableCaption,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from "@/components/ui/table";
+import { type Currency, currencyColumns } from "@/components/currency-columns";
 
 type CurrencyTableProps = {
-  codes: string[];
-  rates: number[];
+  data: Currency[];
 };
 
-function CurrencyTable({ codes, rates }: CurrencyTableProps) {
+function CurrencyTable({ data }: CurrencyTableProps) {
   return (
-    <Table className="mx-auto max-w-96 caption-top">
-      <TableCaption>The list of currencies rate</TableCaption>
-      <TableHeader>
-        <TableRow>
-          <TableHead>Currency</TableHead>
-          <TableHead>Rate</TableHead>
-        </TableRow>
-      </TableHeader>
-      <TableBody>
-        <Codes codes={codes} rates={rates} />
-      </TableBody>
-    </Table>
+    <DataTable
+      columns={currencyColumns}
+      data={data}
+      noDataText="No currencies to display"
+      caption="The list of currencies rate"
+    />
   );
 }
 

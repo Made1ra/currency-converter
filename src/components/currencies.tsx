@@ -1,6 +1,6 @@
 import { SelectContent, SelectItem } from "@/components/ui/select";
 
-import { getCurrencies } from "@/lib/actions";
+import { getCurrencies } from "@/lib/requests";
 
 async function Currencies() {
   const { currencies } = await getCurrencies();

@@ -15,7 +15,8 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Select, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { convert } from "@/lib/actions";
+
+import { convert } from "@/lib/requests";
 
 const convertCurrencySchema = z.object({
   amount: z.coerce.number().positive().min(0.1, {

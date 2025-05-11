@@ -2,10 +2,10 @@
 
 import { type ReactNode, useState } from "react";
 
-import GetCurrenciesForm from "@/components/get-currencies-form";
-
-import CurrencyTable from "@/components/currency-table";
 import { Card, CardContent, CardTitle } from "@/components/ui/card";
+
+import GetCurrenciesForm from "@/components/get-currencies-form";
+import CurrencyTable from "@/components/currency-table";
 import SearchBar from "@/components/search-bar";
 
 type CurrenciesContentProps = {
@@ -16,12 +16,9 @@ function CurrenciesContent({ currencies }: CurrenciesContentProps) {
   const [currency, setCurrency] = useState("");
   const [quotes, setQuotes] = useState<Record<string, number>>({});
 
-  const filteredQuotes = Object.entries(quotes).filter(([code]) =>
-    code.toLowerCase().includes(currency.toLowerCase()),
-  );
-
-  const codes = filteredQuotes.map(([code]) => code);
-  const rates = filteredQuotes.map(([, rate]) => rate);
+  const filteredQuotes = Object.entries(quotes)
+    .filter(([code]) => code.toLowerCase().includes(currency.toLowerCase()))
+    .map(([code, rate]) => ({ code, rate: (1 / rate).toFixed(2) }));
 
   return (
     <>
@@ -36,11 +33,7 @@ function CurrenciesContent({ currencies }: CurrenciesContentProps) {
           <SearchBar setCurrency={setCurrency} />
         </CardContent>
       </Card>
-      {filteredQuotes.length > 0 ? (
-        <CurrencyTable codes={codes} rates={rates} />
-      ) : (
-        <p className="text-center">No currencies to display</p>
-      )}
+      <CurrencyTable data={filteredQuotes} />
     </>
   );
 }
