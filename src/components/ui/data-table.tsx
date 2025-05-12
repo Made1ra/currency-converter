@@ -21,6 +21,7 @@ interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
   data: TData[];
   isLoading: boolean;
+  error: Error | null;
   noDataText: string;
   caption?: string;
 }
@@ -29,6 +30,7 @@ export function DataTable<TData, TValue>({
   columns,
   data,
   isLoading,
+  error,
   noDataText,
   caption,
 }: DataTableProps<TData, TValue>) {
@@ -37,6 +39,18 @@ export function DataTable<TData, TValue>({
     columns,
     getCoreRowModel: getCoreRowModel(),
   });
+
+  const fallbackText = () => {
+    if (isLoading) {
+      return "Loading...";
+    }
+
+    if (error) {
+      return error.message;
+    }
+
+    return noDataText;
+  };
 
   return (
     <Table className="mx-auto max-w-96 caption-top">
@@ -76,7 +90,7 @@ export function DataTable<TData, TValue>({
         ) : (
           <TableRow>
             <TableCell colSpan={columns.length} className="h-24 text-center">
-              {isLoading ? "Loading..." : noDataText}
+              {fallbackText()}
             </TableCell>
           </TableRow>
         )}
