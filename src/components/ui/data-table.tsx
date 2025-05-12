@@ -40,7 +40,7 @@ export function DataTable<TData, TValue>({
     getCoreRowModel: getCoreRowModel(),
   });
 
-  const fallbackText = () => {
+  const getFallbackText = () => {
     if (isLoading) {
       return "Loading...";
     }
@@ -90,7 +90,7 @@ export function DataTable<TData, TValue>({
         ) : (
           <TableRow>
             <TableCell colSpan={columns.length} className="h-24 text-center">
-              {fallbackText()}
+              {getFallbackText()}
             </TableCell>
           </TableRow>
         )}
