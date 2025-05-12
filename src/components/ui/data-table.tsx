@@ -20,6 +20,7 @@ import {
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
   data: TData[];
+  isLoading: boolean;
   noDataText: string;
   caption?: string;
 }
@@ -27,6 +28,7 @@ interface DataTableProps<TData, TValue> {
 export function DataTable<TData, TValue>({
   columns,
   data,
+  isLoading,
   noDataText,
   caption,
 }: DataTableProps<TData, TValue>) {
@@ -74,7 +76,7 @@ export function DataTable<TData, TValue>({
         ) : (
           <TableRow>
             <TableCell colSpan={columns.length} className="h-24 text-center">
-              {noDataText}
+              {isLoading ? "Loading..." : noDataText}
             </TableCell>
           </TableRow>
         )}

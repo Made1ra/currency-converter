@@ -18,7 +18,7 @@ function CurrenciesContent({ currencies }: CurrenciesContentProps) {
   const [currency, setCurrency] = useState("");
   const [source, setSource] = useState("UAH");
 
-  const { quotes } = useLatestRatesQuery(source);
+  const { isLoading, quotes } = useLatestRatesQuery(source);
 
   const filteredQuotes = Object.entries(quotes)
     .filter(([code]) => code.toLowerCase().includes(currency.toLowerCase()))
@@ -46,7 +46,7 @@ function CurrenciesContent({ currencies }: CurrenciesContentProps) {
           <SearchBar setCurrency={setCurrency} />
         </CardContent>
       </Card>
-      <CurrencyTable data={filteredQuotes} />
+      <CurrencyTable isLoading={isLoading} data={filteredQuotes} />
     </>
   );
 }
