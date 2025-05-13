@@ -22,7 +22,10 @@ function CurrenciesContent({ currencies }: CurrenciesContentProps) {
 
   const filteredQuotes = Object.entries(quotes)
     .filter(([code]) => code.toLowerCase().includes(currency.toLowerCase()))
-    .map(([code, rate]) => ({ code, rate: (1 / rate).toFixed(2) }));
+    .map(([code, rate]) => ({
+      code: code.slice(3),
+      rate: (1 / rate).toFixed(2),
+    }));
 
   return (
     <>
