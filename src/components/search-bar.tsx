@@ -1,5 +1,5 @@
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm } from "react-hook-form";
+import { useForm, type Resolver } from "react-hook-form";
 import { z } from "zod";
 import { Search } from "lucide-react";
 
@@ -17,21 +17,25 @@ const searchCurrenciesSchema = z.object({
   currency: z.string().nonempty(),
 });
 
-type SearchCurrensiesForm = z.infer<typeof searchCurrenciesSchema>;
+type SearchCurrenciesForm = {
+  currency: string;
+};
 
 type SearchBarProps = {
   setCurrency: (currency: string) => void;
 };
 
 function SearchBar({ setCurrency }: SearchBarProps) {
-  const form = useForm<SearchCurrensiesForm>({
-    resolver: zodResolver(searchCurrenciesSchema),
+  const form = useForm<SearchCurrenciesForm>({
+    resolver: zodResolver(
+      searchCurrenciesSchema,
+    ) as Resolver<SearchCurrenciesForm>,
     defaultValues: {
       currency: "",
     },
   });
 
-  const onSubmit = (values: SearchCurrensiesForm) => {
+  const onSubmit = (values: SearchCurrenciesForm) => {
     setCurrency(values.currency);
     form.reset();
   };

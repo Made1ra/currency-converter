@@ -1,6 +1,6 @@
 import type { ReactNode } from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm } from "react-hook-form";
+import { useForm, type Resolver } from "react-hook-form";
 import { z } from "zod";
 
 import { Button } from "@/components/ui/button";
@@ -18,6 +18,12 @@ import { Select, SelectTrigger, SelectValue } from "@/components/ui/select";
 
 import { convert } from "@/lib/requests";
 
+type ConvertCurrencyForm = {
+  amount: number;
+  from: string;
+  to: string;
+};
+
 const convertCurrencySchema = z.object({
   amount: z.coerce.number().positive().min(0.1, {
     message: "Amount must be greater than 0.1",
@@ -25,8 +31,6 @@ const convertCurrencySchema = z.object({
   from: z.string().nonempty(),
   to: z.string().nonempty(),
 });
-
-type ConvertCurrencyForm = z.infer<typeof convertCurrencySchema>;
 
 type ConvertCurrencyFormProps = {
   currencies: ReactNode;
@@ -38,7 +42,9 @@ function ConvertCurrencyForm({
   setResult,
 }: ConvertCurrencyFormProps) {
   const form = useForm<ConvertCurrencyForm>({
-    resolver: zodResolver(convertCurrencySchema),
+    resolver: zodResolver(
+      convertCurrencySchema,
+    ) as Resolver<ConvertCurrencyForm>,
     defaultValues: {
       amount: 0.1,
       from: "UAH",
