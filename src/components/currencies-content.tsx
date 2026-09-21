@@ -39,7 +39,7 @@ function CurrenciesContent({ currencies }: CurrenciesContentProps) {
             </SelectTrigger>
             {currencies}
           </Select>
-          <p className="text-[0.8rem] text-muted-foreground">
+          <p className="text-muted-foreground text-[0.8rem]">
             The currency you want to convert from
           </p>
         </CardContent>
